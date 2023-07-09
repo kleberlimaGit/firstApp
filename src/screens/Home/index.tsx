@@ -17,10 +17,8 @@ export default function Home() {
     if(participantName.length <= 0){
         return Alert.alert("Input vazio", "Você não pode enviar dados vazios.")
     }
-    if(participants.includes(participantName)){
-        return Alert.alert("Participante existe", "Já Existe um participante na lista com esse nome.")
-    }
-    setParticipants(state => [...state, participantName])
+
+    setParticipants(state => [...state, participantName.toUpperCase()])
     setParticipantName('')
   }
 
@@ -29,7 +27,7 @@ export default function Home() {
         {
             text: "Sim",
             onPress:() => {
-                Alert.alert("Participante deletado com sucesso")
+              setParticipants(participants.filter(p => p !== participants[index]))
             }
         },
         {
@@ -41,8 +39,8 @@ export default function Home() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.eventName}>Meu Primeiro App</Text>
-      <Text style={styles.eventDate}>29/07/1990 00:00:00</Text>
+      <Text style={styles.eventName}>Meus Convidados</Text>
+      <Text style={styles.eventDate}>Quantidade: {participants.length}</Text>
       <View style={styles.inputView}>
         <TextInput
           style={styles.input}
